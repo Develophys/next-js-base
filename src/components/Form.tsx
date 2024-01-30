@@ -21,7 +21,7 @@ export function Form(props: FormProps) {
     <form {...props} action={formAction}>
       {props.children}
 
-      {state.error && (
+      {state?.error && (
         <div className="bg-red-400 text-white rounded p-2 my-3">
           {state.error}
         </div>

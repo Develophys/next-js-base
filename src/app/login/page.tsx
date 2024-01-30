@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
-import { Form } from "../../components/Form";
-import { Submit } from "../../components/Submit";
+
+import { Form } from "@/components/Form";
+import { Submit } from "@/components/Submit";
 
 function LoginPage() {
   async function loginAction(prevState: any, form: FormData) {
@@ -19,7 +20,7 @@ function LoginPage() {
 
     if (response.ok) {
       const data = await response.json();
-      redirect("/protected");
+      redirect("/products");
     } else {
       const { message } = await response.json();
       return { error: message };
