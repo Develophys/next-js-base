@@ -37,11 +37,11 @@ app.post("/login", async (req, res) => {
   res.json({ token });
 });
 
-app.get("/protegida", verificarToken, (req, res) => {
+app.get("/protect", checkToken, (req, res) => {
   res.json({ message: "Protected Rote!", user: req.user });
 });
 
-function verificarToken(req, res, next) {
+function checkToken(req, res, next) {
   const token = req.header("Authorization");
 
   if (!token) {
@@ -50,7 +50,7 @@ function verificarToken(req, res, next) {
 
   jwt.verify(token, "secret", (err, decoded) => {
     if (err) {
-      return res.status(401).json({ message: "Inavalid Token" });
+      return res.status(401).json({ message: "Invalid Token" });
     }
 
     req.user = decoded;
@@ -89,5 +89,5 @@ app.get("/products", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Servidor iniciado em http://localhost:${port}`);
+  console.log(`Start server in http://localhost:${port}`);
 });
