@@ -14,7 +14,7 @@ async function ProductsPage({
   const { name } = searchParams;
 
   return (
-    <div className="m-1">
+    <div className="m-1 text-black">
       <h1>SLUG: {slug}</h1>
       <h1>Search Params NAME: {name}</h1>
 

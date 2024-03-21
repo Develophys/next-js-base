@@ -30,24 +30,24 @@ function LoginPage() {
   return (
     <div className="m-2 h-full flex justify-center items-center">
       <div className="bg-white p-8 rounded shadow w-96">
-        <h2 className="text-2xl mb-4 text-black"> Login</h2>
+        <h2 className="text-2xl mb-4 text-black">Login</h2>
         <Form action={loginAction}>
           <div>
-            <label className="block text-sm text-gray-00 ">User</label>
+            <label className="block text-sm text-gray-600">User</label>
             <input
               type="text"
               name="username"
-              id=""
-              className="w-full p-2 rounded shadow mt-1"
+              id="username"
+              className="w-full p-2 rounded shadow mt-1 text-gray-500"
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-00 mt-2">Password</label>
+            <label className="block text-sm text-gray-600 mt-2">Password</label>
             <input
               type="password"
               name="password"
-              id=""
-              className="w-full p-2 rounded shadow mt-1"
+              id="password"
+              className="w-full p-2 rounded shadow mt-1 text-gray-500"
             />
           </div>
           <div>

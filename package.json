@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "run:api": "node ./fake-api/app.js"
   },
   "dependencies": {
     "next": "14.0.3",
