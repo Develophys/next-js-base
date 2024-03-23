@@ -20,16 +20,55 @@ const getAllUsers = async (res: NextResponse) => {
       {
         message: "Ok",
         data: users,
-        status: res.status,
+        status: res.status || 200,
       },
     );
   } catch (error) {
     return NextResponse.json(
       {
-        message: "Error",
+        message: "Error while fetching users",
         error,
-        status: res.status,
+        status: res.status || 500,
       }
     );
   }
 };
+
+export const POST = async (
+  req: NextRequest,
+  res: NextResponse,
+) => {
+  try {
+
+    const newUser = await req.json();
+
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email: newUser.email
+      }
+    });
+
+    if (existingUser)
+      throw new Error(`Email '${existingUser.email}' already exists.`);
+
+    await prisma.user.create({
+      data: newUser
+    });
+
+    return NextResponse.json(
+      {
+        message: "User Created",
+        data: newUser,
+        status: res.status || 200,
+      },
+    );
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: "Error creating user",
+        error,
+        status: res.status || 500,
+      }
+    );
+  }
+}
