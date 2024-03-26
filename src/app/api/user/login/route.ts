@@ -8,7 +8,6 @@ import { prisma } from "@/lib/prisma";
 
 export const POST = async (
   req: NextRequest,
-  res: NextResponse,
 ) => {
   try {
 
@@ -42,7 +41,7 @@ export const POST = async (
       {
         message: "Login successful.",
         data: token,
-        status: res.status || 200,
+        status: 200,
       },
     );
   } catch (error: any) {
@@ -50,7 +49,7 @@ export const POST = async (
       {
         message: error?.message || "Login failed.",
         error,
-        status: res.status || 500,
+        status: error.status || 500,
       }
     );
   }

@@ -2,28 +2,45 @@ import { redirect } from "next/navigation";
 
 import { Form } from "@/components/Form";
 import { Submit } from "@/components/Submit";
+import { STATUS_CODES } from "http";
 
 function LoginPage() {
-  async function loginAction(prevState: any, form: FormData) {
+  async function loginAction(_prevState: any, form: FormData) {
     "use server";
 
-    const response = await fetch("http://localhost:8000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: form.get("username"),
-        password: form.get("password"),
-      }),
+    const body = JSON.stringify({
+      email: form.get("email"),
+      password: form.get("password"),
     });
 
-    if (response.ok) {
-      const data = await response.json();
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body,
+      }
+    );
+
+    const defaultError = {
+      error:
+        { status: response.status, message: response.statusText } ||
+        "Unknown error.",
+    };
+
+    if (!response.ok) return;
+
+    const data = await response.json();
+
+    if (data.status === 200) {
       redirect("/products");
+    } else if (data.status === 400 || data.status === 500) {
+      return defaultError;
     } else {
-      const { message } = await response.json();
-      return { error: message };
+      const statusText = STATUS_CODES[data.status] || "Unknown Status Code";
+      return { error: statusText || "Unknown error." };
     }
   }
 
@@ -33,11 +50,11 @@ function LoginPage() {
         <h2 className="text-2xl mb-4 text-black">Login</h2>
         <Form action={loginAction}>
           <div>
-            <label className="block text-sm text-gray-600">User</label>
+            <label className="block text-sm text-gray-600">User Email</label>
             <input
-              type="text"
-              name="username"
-              id="username"
+              type="email"
+              name="email"
+              id="email"
               className="w-full p-2 rounded shadow mt-1 text-gray-500"
             />
           </div>

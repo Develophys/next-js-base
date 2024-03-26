@@ -1,7 +1,7 @@
 import { IPagedProducts } from "@/models/paged-products";
 
 async function getProducts(): Promise<IPagedProducts> {
-  const response = await fetch("http://localhost:8000/products", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
     cache: "no-store",
   });
 
