@@ -1,8 +1,11 @@
 import { redirect } from "next/navigation";
 
+import { cookies } from "next/headers";
+
+import { STATUS_CODES } from "http";
+
 import { Form } from "@/components/Form";
 import { Submit } from "@/components/Submit";
-import { STATUS_CODES } from "http";
 
 function LoginPage() {
   async function loginAction(_prevState: any, form: FormData) {
@@ -24,28 +27,28 @@ function LoginPage() {
       }
     );
 
-    const defaultError = {
-      error:
-        { status: response.status, message: response.statusText } ||
-        "Unknown error.",
-    };
-
     if (!response.ok) return;
 
-    const data = await response.json();
+    const { data, status } = await response.json();
 
-    if (data.status === 200) {
+    if (status === 200) {
+      cookies().set("token", data);
+
       redirect("/products");
-    } else if (data.status === 400 || data.status === 500) {
-      return defaultError;
+    } else if (status === 400 || status === 500) {
+      return {
+        error:
+          { status: response.status, message: response.statusText } ||
+          "Unknown error.",
+      };
     } else {
-      const statusText = STATUS_CODES[data.status] || "Unknown Status Code";
+      const statusText = STATUS_CODES[status] || "Unknown Status Code";
       return { error: statusText || "Unknown error." };
     }
   }
 
   return (
-    <div className="m-2 h-full flex justify-center items-center">
+    <div className="m-2 h-screen flex justify-center items-center">
       <div className="bg-white p-8 rounded shadow w-96">
         <h2 className="text-2xl mb-4 text-black">Login</h2>
         <Form action={loginAction}>
