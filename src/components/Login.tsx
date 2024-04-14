@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { LoginForm, LoginFormSchema } from "./LoginForm";
 import { SignInGithubButton } from "./SignInGithubButton";
+import { Separator } from "./ui/separator";
 
 export const LoginComponent = () => {
   const router = useRouter();
@@ -29,6 +30,11 @@ export const LoginComponent = () => {
       <h2 className="text-2xl mb-4 text-black">Sign-In</h2>
 
       <LoginForm action={loginAction} />
+
+      <div className="flex flex-col items-center mt-3">
+        <Separator />
+        <span className="text-gray-500">OR</span>
+      </div>
 
       <div className="flex justify-center mt-2">
         <SignInGithubButton />

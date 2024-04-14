@@ -2,14 +2,15 @@
 
 import { signIn } from "next-auth/react";
 
+import { Button } from "./ui/button";
+
 export const SignInGithubButton = () => {
   return (
-    <button
-      className="bg-slate-600 px-4 py-2 text-white rounded"
+    <Button
+      className="bg-blue-500 hover:bg-black"
       onClick={() => signIn("github", { callbackUrl: "/products" })}
-      type="button"
     >
       Sign In With GitHub
-    </button>
+    </Button>
   );
 };

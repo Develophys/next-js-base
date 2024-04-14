@@ -24,7 +24,8 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"],
-      "~/*": ["./public/*"]
+      "~/*": ["./public/*"],
+      "@/lib/utils/*": ["./src/lib/*"]
     }
   },
   "include": [
