@@ -4,6 +4,8 @@ import { Inter } from "next/font/google";
 
 import "@/styles/globals.css";
 
+import NextAuthProvider from "./auth-provider";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,7 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} overflow-y-hidden`}>{children}</body>
+      <body
+        suppressHydrationWarning={true}
+        className={`${inter.className} overflow-y-hidden`}
+      >
+        <NextAuthProvider>{children}</NextAuthProvider>
+      </body>
     </html>
   );
 }

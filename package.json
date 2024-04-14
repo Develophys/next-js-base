@@ -11,11 +11,15 @@
     "run:api": "node ./fake-api/app.js"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "^5.11.0",
     "next": "14.0.3",
+    "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18",
-    "ts-node": "^10.9.2"
+    "react-hook-form": "^7.51.3",
+    "ts-node": "^10.9.2",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.0",

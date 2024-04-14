@@ -5,6 +5,8 @@ import { compareSync } from "bcrypt";
 
 import { prisma } from "@/lib/prisma";
 
+import { AuthBffResponse } from "@/models/auth-bff-response";
+
 export const POST = async (
   req: NextRequest,
 ) => {
@@ -33,7 +35,7 @@ export const POST = async (
           }
         );
 
-        return NextResponse.json(
+        return NextResponse.json<AuthBffResponse>(
           {
             message: "Login successful.",
             data: token,
@@ -48,7 +50,7 @@ export const POST = async (
     throw new Error(`Invalid Email or Password.`);
 
   } catch (error: any) {
-    return NextResponse.json(
+    return NextResponse.json<AuthBffResponse>(
       {
         message: error?.message || "Login failed.",
         error,

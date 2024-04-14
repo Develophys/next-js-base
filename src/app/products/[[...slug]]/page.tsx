@@ -2,6 +2,7 @@ import { Suspense } from "react";
 
 import { LoaderSpinner } from "@/components/LoaderSpinner";
 import { ProductsList } from "@/components/ProductsList";
+import { SignOutButton } from "@/components/SignOutButton";
 
 async function ProductsPage({
   params,
@@ -21,6 +22,8 @@ async function ProductsPage({
       <Suspense fallback={<LoaderSpinner />}>
         <ProductsList />
       </Suspense>
+
+      <SignOutButton />
     </div>
   );
 }
