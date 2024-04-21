@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { sign } from 'jsonwebtoken'
+import { sign } from 'jsonwebtoken';
 import { compareSync } from "bcrypt";
 
 import { prisma } from "@/lib/prisma";

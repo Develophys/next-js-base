@@ -14,8 +14,8 @@ model User {
   cpf      String
   password String
   type     UserType
-  profiles Profile[] @relation("UserToProfile")
-  Course   Course[]
+  profiles Profile[] @relation("UserProfiles")
+  courses  Course[]  @relation("UserCourses")
 }
 
 enum UserType {
@@ -25,18 +25,11 @@ enum UserType {
 }
 
 model Profile {
-  id          String       @id @default(uuid())
+  id          String @id @default(uuid())
   name        String
   description String
-  users       User[]       @relation("UserToProfile")
-  permissions Permission[] @relation("ProfileToPermission")
-}
-
-model Permission {
-  id          String    @id @default(uuid())
-  name        String
-  description String
-  profiles    Profile[] @relation("ProfileToPermission")
+  permissions String @unique
+  users       User[] @relation("UserProfiles")
 }
 
 model Student {
@@ -68,14 +61,15 @@ model Course {
   weekendDays             String // Alternatively, you could use an enum here
   classWorkloadDuration   Int
 
-  responsible User   @relation(fields: [userId], references: [id])
-  userId      String
+  users User[] @relation("UserCourses")
+
+  userId String
 
   materials File[] @relation("CourseFiles")
 
   currentStudents Student[] @relation("CourseStudents")
 
-  Teacher   Teacher? @relation(fields: [teacherId], references: [id])
+  teacher   Teacher? @relation(fields: [teacherId], references: [id])
   teacherId String?
 }
 

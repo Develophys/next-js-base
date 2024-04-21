@@ -6,6 +6,10 @@ import { prisma } from "@/lib/prisma";
 
 import { SALT } from "@/constants";
 
+import { IUser } from "@/models/user";
+
+import { UserCreateDto } from "../dtos/create-user-dto";
+
 export const GET = async (
   _req: NextRequest,
   res: NextResponse,
@@ -21,6 +25,9 @@ const getAllUsers = async (res: NextResponse) => {
         id: true,
         name: true,
         email: true,
+        type: true,
+        courses: true,
+        profiles: true
       },
     });
 
@@ -47,8 +54,7 @@ export const POST = async (
   res: NextResponse,
 ) => {
   try {
-
-    const newUser = await req.json();
+    const newUser: UserCreateDto = await req.json();
 
     const existingUser = await prisma.user.findUnique({
       where: {
@@ -59,14 +65,12 @@ export const POST = async (
     if (existingUser)
       throw new Error(`User email '${existingUser.email}' already exists.`);
 
-    const t = {
+    const data: IUser = {
       ...newUser,
       password: hashSync(newUser.password, SALT),
     }
 
-    await prisma.user.create({
-      data: t,
-    });
+    const { id: newUserId } = await prisma.user.create({ data });
 
     return NextResponse.json(
       {
@@ -74,7 +78,8 @@ export const POST = async (
         user: {
           name: newUser.name,
           email: newUser.email,
-          id: newUser.id
+          type: newUser.type,
+          id: newUserId
         },
         status: res.status || 200,
       },
