@@ -4,6 +4,8 @@ import { Inter } from "next/font/google";
 
 import "@/styles/globals.css";
 
+import { Toaster } from "@/components/ui/toaster";
+
 import NextAuthProvider from "./auth-provider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,6 +27,7 @@ export default function RootLayout({
         className={`${inter.className} overflow-y-hidden`}
       >
         <NextAuthProvider>{children}</NextAuthProvider>
+        <Toaster />
       </body>
     </html>
   );

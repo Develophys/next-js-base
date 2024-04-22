@@ -7,8 +7,8 @@ import { Button } from "./ui/button";
 export const SignInGithubButton = () => {
   return (
     <Button
-      className="bg-blue-500 hover:bg-black"
-      onClick={() => signIn("github", { callbackUrl: "/products" })}
+      className="bg-blue-500 text-black hover:bg-black hover:text-white"
+      onClick={() => signIn("github", { callbackUrl: "/home" })}
     >
       Sign In With GitHub
     </Button>

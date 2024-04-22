@@ -64,7 +64,12 @@ export const LoginForm = ({ action }: LoginFormProps) => {
           flex 
           justify-center 
           items-center
-          ${!isValid || isSubmitting ? "bg-gray-500" : "bg-blue-500"}
+          hover:bg-green-600
+          ${
+            !isValid || isSubmitting
+              ? "bg-green-400 text-gray-700"
+              : "bg-green-500 text-black"
+          }
           `}
       >
         {isSubmitting ? <LoaderSpinner /> : <>Login</>}

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { Button } from "./ui/button";
 
 type SubmitProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -10,5 +11,5 @@ type SubmitProps = React.DetailedHTMLProps<
 export const SubmitButton = (props: SubmitProps) => {
   const { disabled, ...otherProps } = props;
 
-  return <button type="submit" {...otherProps} disabled={disabled} />;
+  return <Button type="submit" {...otherProps} disabled={disabled} />;
 };
