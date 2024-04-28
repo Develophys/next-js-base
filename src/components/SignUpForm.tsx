@@ -20,7 +20,7 @@ const signUpFormSchema = z.object({
 export type SignUpFormSchema = z.infer<typeof signUpFormSchema>;
 
 interface SignUpFormProps {
-  action: (data: SignUpFormSchema) => void;
+  action: (data: SignUpFormSchema) => void; // eslint-disable-line
 }
 
 export default function SignUpForm({ action }: SignUpFormProps) {

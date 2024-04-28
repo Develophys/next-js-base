@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email", placeholder: "user@email.com" },
         password: { label: "Password", type: "password", placeholder: "******" }
       },
-      async authorize(credentials, req) {
+      async authorize(credentials, req) { // eslint-disable-line 
         const user = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/login`, {
           method: 'POST',
           body: JSON.stringify(credentials),

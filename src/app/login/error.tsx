@@ -1,7 +1,7 @@
 "use client";
 
 export default function GlobalError({
-  error,
+  error, // eslint-disable-line
   reset,
 }: {
   error: Error & { digest?: string };

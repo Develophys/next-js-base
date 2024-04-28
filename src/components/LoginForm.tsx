@@ -19,7 +19,7 @@ const loginFormSchema = z.object({
 export type LoginFormSchema = z.infer<typeof loginFormSchema>;
 
 interface LoginFormProps {
-  action: (data: LoginFormSchema) => void;
+  action: (data: LoginFormSchema) => void; // eslint-disable-line
 }
 
 export const LoginForm = ({ action }: LoginFormProps) => {

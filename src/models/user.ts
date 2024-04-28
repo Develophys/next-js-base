@@ -1,6 +1,5 @@
 import { USER_TYPE } from "@/enums"
 
-import { IProfile } from "./profile"
 
 export interface IUser {
   id?: string
