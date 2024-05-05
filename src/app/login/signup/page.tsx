@@ -5,7 +5,9 @@ import { ChevronLeft } from "lucide-react";
 
 import { ToastAction } from "@radix-ui/react-toast";
 
-import SignUpForm, { SignUpFormSchema } from "@/components/SignUpForm";
+import { SignUpFormSchema } from "@/schemas/login-schema";
+
+import SignUpForm from "@/components/SignUpForm";
 
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
@@ -18,7 +20,7 @@ export default function SignUp() {
   const createUserAction = async (form: SignUpFormSchema) => {
     const newUser = {
       name: form.name,
-      cpf: form.cpf,
+      cpfCnpj: form.cpfCnpj,
       type: form.type,
       email: form.email,
       password: form.password,
@@ -48,9 +50,9 @@ export default function SignUp() {
   };
 
   return (
-    <div className="bg-grey-lighter min-h-screen flex flex-col">
-      <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-        <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+    <div className="bg-grey-lighter min-h-screen w-full flex flex-col">
+      <div className="w-screen container mx-auto flex-1 flex flex-col items-center justify-center px-2">
+        <div className="bg-white px-2 py-4 rounded shadow-md text-black w-1/2  h-max">
           <div className="flex items-center mb-8">
             <Button
               variant="outline"
@@ -88,6 +90,7 @@ export default function SignUp() {
             className="no-underline border-b border-blue text-blue"
             href="../login/"
           >
+            {" "}
             Log in
           </a>
           .

@@ -1,6 +1,6 @@
 import { signIn } from "next-auth/react";
 
-import { LoginFormSchema } from "@/components/LoginForm";
+import { LoginFormSchema } from "@/schemas/login-schema";
 
 export const loginAction = async (form: LoginFormSchema) => {
   const res = await signIn("credentials", {

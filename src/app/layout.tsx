@@ -24,10 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        suppressHydrationWarning={true}
-        className={`${inter.className} overflow-y-hidden`}
-      >
+      <body suppressHydrationWarning={true} className={`${inter.className}`}>
         <NextAuthProvider>{children}</NextAuthProvider>
         <Toaster />
       </body>

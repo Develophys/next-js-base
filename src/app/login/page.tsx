@@ -1,7 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-import { LoginForm, LoginFormSchema } from "@/components/LoginForm";
+import { LoginFormSchema } from "@/schemas/login-schema";
+
+import { LoginForm } from "@/components/LoginForm";
 import { SignInGithubButton } from "@/components/SignInGithubButton";
 
 import { Separator } from "@/components/ui/separator";

@@ -5,7 +5,7 @@ export interface IUser {
   id?: string
   name: string
   email: string
-  cpf: string
+  cpfCnpj: string
   password: string
   type: USER_TYPE
 

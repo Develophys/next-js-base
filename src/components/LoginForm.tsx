@@ -4,6 +4,8 @@ import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { LoginFormSchema, baseFormSchema } from "@/schemas/login-schema";
+
 import { SubmitButton } from "./Submit";
 import { LoaderSpinner } from "./LoaderSpinner";
 
@@ -17,20 +19,13 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 
-const loginFormSchema = z.object({
-  email: z.string().email().trim().toLowerCase(),
-  password: z.string().min(3, "Password must be at least 3 characters long"),
-});
-
-export type LoginFormSchema = z.infer<typeof loginFormSchema>;
-
 interface LoginFormProps {
   action: (data: LoginFormSchema) => Promise<void>; // eslint-disable-line
 }
 
 export const LoginForm = ({ action }: LoginFormProps) => {
-  const form = useForm<z.infer<typeof loginFormSchema>>({
-    resolver: zodResolver(loginFormSchema),
+  const form = useForm<z.infer<typeof baseFormSchema>>({
+    resolver: zodResolver(baseFormSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -65,7 +60,7 @@ export const LoginForm = ({ action }: LoginFormProps) => {
             <FormItem className="h-24 w-full">
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="***" {...field} />
+                <Input placeholder="***" {...field} type="password" />
               </FormControl>
               <FormMessage />
             </FormItem>
