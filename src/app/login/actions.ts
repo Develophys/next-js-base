@@ -9,8 +9,5 @@ export const loginAction = async (form: LoginFormSchema) => {
     redirect: false,
   });
 
-  if (!res?.ok) {
-    // show toast with error
-    return;
-  }
+  return res;
 };

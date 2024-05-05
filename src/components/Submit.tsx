@@ -9,7 +9,7 @@ type SubmitProps = React.DetailedHTMLProps<
 >;
 
 export const SubmitButton = (props: SubmitProps) => {
-  const { disabled, ...otherProps } = props;
+  const { ...otherProps } = props;
 
-  return <Button type="submit" {...otherProps} disabled={disabled} />;
+  return <Button type="submit" {...otherProps} />;
 };

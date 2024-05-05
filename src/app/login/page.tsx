@@ -6,16 +6,36 @@ import { SignInGithubButton } from "@/components/SignInGithubButton";
 
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 import { loginAction } from "./actions";
 
 function LoginPage() {
   const router = useRouter();
 
-  const handleLoginAction = async (form: LoginFormSchema) => {
-    await loginAction(form);
+  const { toast } = useToast();
 
-    router.push("/home");
+  const handleLoginAction = (form: LoginFormSchema): Promise<void> => {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        loginAction(form).then((loginResponse) => {
+          if (!loginResponse?.ok) {
+            toast({
+              variant: "destructive",
+              title: "Uh oh! Something went wrong",
+              description: "Check your username and password.",
+              duration: 3000,
+            });
+            reject(loginResponse);
+          } else {
+            resolve();
+            router.push("/home");
+          }
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
   };
 
   return (

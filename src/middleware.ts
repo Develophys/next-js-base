@@ -1,6 +1,6 @@
 export { default } from "next-auth/middleware";
 
-export const config = { matcher: ["/products"] };
+export const config = { matcher: ["/products", "/home"] };
 
 // import { withAuth } from "next-auth/middleware"
 
