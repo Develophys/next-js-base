@@ -11,7 +11,7 @@ model User {
   id       String    @id @default(uuid())
   email    String    @unique
   name     String?
-  cpf      String    @unique
+  cpfCnpj  String    @unique
   password String
   type     UserType
   profiles Profile[] @relation("UserProfiles")
