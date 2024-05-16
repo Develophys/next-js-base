@@ -6,6 +6,8 @@ import { Inter } from "next/font/google";
 
 import "@/styles/globals.css";
 
+import { Header } from "@/components/Header";
+import { Sidebar } from "@/components/Sidebar";
 import { Toaster } from "@/components/ui/toaster";
 
 import NextAuthProvider from "./auth-provider";
@@ -24,8 +26,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true} className={`${inter.className}`}>
-        <NextAuthProvider>{children}</NextAuthProvider>
+      <body suppressHydrationWarning={true} className={`${inter.className} `}>
+        <NextAuthProvider>
+          <main className="h-screen">
+            <Header />
+
+            <div className="flex h-full">
+              <Sidebar />
+              <div className="border-2 border-t-0 p-3 flex-1 overflow-y-auto">
+                {children}
+              </div>
+            </div>
+          </main>
+        </NextAuthProvider>
         <Toaster />
       </body>
     </html>

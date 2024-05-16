@@ -1,13 +1,22 @@
 "use client";
+import React from "react";
 
 import { signOut } from "next-auth/react";
 
-export const SignOutButton = () => {
+type ButtonProps = React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
+
+export const SignOutButton = (props: ButtonProps) => {
+  const { ...otherProps } = props;
+
   return (
     <button
-      className="bg-slate-600 px-4 py-2 text-white"
+      className="w-full h-full px-4 py-2 text-black"
       onClick={() => signOut({ callbackUrl: "/login" })}
       type="button"
+      {...otherProps}
     >
       Sign Out
     </button>
