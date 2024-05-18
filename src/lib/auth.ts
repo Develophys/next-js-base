@@ -3,6 +3,10 @@ import { NextAuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from "next-auth/providers/credentials"
 
+import { prisma } from "@/lib/prisma";
+
+import { compareSync } from "bcrypt";
+
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
@@ -15,15 +19,21 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password", placeholder: "******" }
       },
       async authorize(credentials, req) { // eslint-disable-line 
-        const user = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/login`, {
-          method: 'POST',
-          body: JSON.stringify(credentials),
-          headers: { "Content-Type": "application/json" }
-        }).then(async res => await res.json());
 
+        if (credentials?.email && credentials?.password) {
+          const user = await prisma.user.findUnique({ where: { email: credentials?.email } })
 
-        if (user && user.status !== 500) {
-          return user;
+          if (!user)
+            throw new Error(`Invalid Email or Password.`);
+
+          if (user && user.password) {
+            if (!compareSync(credentials?.password, user.password))
+              throw new Error(`Invalid Email or Password.`);
+
+            return user;
+          }
+
+          throw new Error(`Invalid Email or Password.`);
         }
 
         return null

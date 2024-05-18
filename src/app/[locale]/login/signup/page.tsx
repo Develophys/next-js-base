@@ -26,7 +26,7 @@ export default function SignUp() {
       password: form.password,
     };
 
-    const res = await fetch("/api/user", {
+    const res = await fetch("/en/api/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newUser),

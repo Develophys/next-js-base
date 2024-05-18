@@ -5,7 +5,7 @@ import * as NextNavigation from "next/navigation";
 
 import "@testing-library/jest-dom";
 
-import HomePage from "@/app/home/page";
+import HomePage from "@/app/[locale]/home/page";
 
 jest.mock("next/navigation");
 

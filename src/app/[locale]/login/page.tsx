@@ -1,6 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
 
+import { useScopedI18n } from "@/../locales/client";
+
 import { LoginFormSchema } from "@/schemas/login-schema";
 
 import { LoginForm } from "@/components/LoginForm";
@@ -13,6 +15,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { loginAction } from "./actions";
 
 function LoginPage() {
+  const scopedL = useScopedI18n("login");
+
   const router = useRouter();
 
   const { toast } = useToast();
@@ -43,7 +47,7 @@ function LoginPage() {
   return (
     <div className="m-2 h-screen flex justify-center items-center">
       <div className="bg-white p-8 rounded shadow w-96">
-        <h2 className="text-2xl mb-4 text-black">Sign-In</h2>
+        <h2 className="text-2xl mb-4 text-black">{scopedL("title")}</h2>
 
         <LoginForm action={handleLoginAction} />
 

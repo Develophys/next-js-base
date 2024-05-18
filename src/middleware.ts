@@ -1,23 +1,13 @@
-export { default } from "next-auth/middleware";
+import { createI18nMiddleware } from 'next-international/middleware'
+import { NextRequest } from 'next/server'
 
-export const config = { matcher: ["/products", "/home"] };
+const I18nMiddleware = createI18nMiddleware({
+  locales: ['en', 'pt', 'es'],
+  defaultLocale: 'en'
+})
 
-// import { withAuth } from "next-auth/middleware"
+export function middleware(request: NextRequest) {
+  return I18nMiddleware(request)
+}
 
-// export default withAuth(
-//   function middleware(_req) {
-//   },
-//   {
-//     callbacks: {
-//       authorized: ({ req, token }) => {
-//         if (
-//           (req.nextUrl.pathname.startsWith('/products') || req.nextUrl.pathname.startsWith('/api')) &&
-//           token === null
-//         ) {
-//           return false
-//         }
-//         return true
-//       }
-//     }
-//   }
-// )
+export const config = { matcher: ['/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt).*)'] };
