@@ -13,19 +13,20 @@ import {
 
 import { SignOutButton } from "./SignOutButton";
 import NavigationHeader from "./NavigationHeader";
+import SelectLanguage from "./SelectLanguage";
 
 export function Header() {
   const pathname = usePathname();
 
   if (!pathname.includes("/login"))
     return (
-      <header className="border-2 flex h-16 w-full shrink-0 items-center justify-between bg-purple-100 p-4 absolute">
-        <div className="flex items-center space-x-1">
+      <header className="border-2 flex  h-16 w-full shrink-0 items-center justify-between bg-purple-100 p-4 absolute">
+        <div className="flex items-center space-x-1 gap-2">
           <h1 className="text-lg font-medium">Study APP</h1>
+          <SelectLanguage />
         </div>
 
         <NavigationHeader />
-
         <div className=" flex gap-2">
           <Menubar className="border-none bg-transparent">
             <MenubarMenu>
