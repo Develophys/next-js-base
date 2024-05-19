@@ -1,5 +1,9 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+
+import { useSession } from "next-auth/react";
+
+import { useCurrentLocale } from "@/../locales/client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
@@ -14,11 +18,24 @@ import {
 import { SignOutButton } from "./SignOutButton";
 import NavigationHeader from "./NavigationHeader";
 import SelectLanguage from "./SelectLanguage";
+import { isExpired } from "@/lib/utils";
 
 export function Header() {
+  const locale = useCurrentLocale();
+
   const pathname = usePathname();
 
-  if (!pathname.includes("/login"))
+  const router = useRouter();
+
+  const { data: session } = useSession();
+
+  if (
+    pathname.includes(`/${locale}/login`) &&
+    !isExpired(session?.expires as string)
+  )
+    router.push(`/${locale}/home`);
+
+  if (!pathname.includes(`/${locale}/login`))
     return (
       <header className="border-2 flex  h-16 w-full shrink-0 items-center justify-between bg-purple-100 p-4 absolute">
         <div className="flex items-center space-x-1 gap-2">

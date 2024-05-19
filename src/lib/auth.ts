@@ -3,6 +3,8 @@ import { NextAuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from "next-auth/providers/credentials"
 
+import { User } from '@prisma/client';
+
 import { prisma } from "@/lib/prisma";
 
 import { compareSync } from "bcrypt";
@@ -19,9 +21,14 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password", placeholder: "******" }
       },
       async authorize(credentials, req) { // eslint-disable-line 
-
         if (credentials?.email && credentials?.password) {
-          const user = await prisma.user.findUnique({ where: { email: credentials?.email } })
+          const user = await prisma.user.findUnique({
+            where: { email: credentials?.email },
+            include: {
+              profiles: true,
+              courses: true
+            }
+          })
 
           if (!user)
             throw new Error(`Invalid Email or Password.`);
@@ -30,7 +37,17 @@ export const authOptions: NextAuthOptions = {
             if (!compareSync(credentials?.password, user.password))
               throw new Error(`Invalid Email or Password.`);
 
-            return user;
+            const userToSend = {
+              id: user.id,
+              email: user.email,
+              name: user.name,
+              cpfCnpj: user.cpfCnpj,
+              type: user.type,
+              profiles: user.profiles,
+              courses: user.courses,
+            };
+
+            return userToSend;
           }
 
           throw new Error(`Invalid Email or Password.`);
@@ -48,4 +65,18 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/login'
   },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token && token.user) {
+        session.user = token.user as User;
+      }
+      return session;
+    },
+  }
 };

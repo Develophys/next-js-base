@@ -24,3 +24,13 @@ export const formatCpfCnpj = (value: string) => {
       .replace(/(\d{4})(\d)/, '$1-$2');
   }
 };
+
+export function isExpired(isoDateString: string) {
+  if (!isoDateString) {
+    return true;
+  }
+
+  const expirationDate = new Date(isoDateString);
+  const currentDate = new Date();
+  return expirationDate < currentDate;
+}
